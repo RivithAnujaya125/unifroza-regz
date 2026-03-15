@@ -1,0 +1,33 @@
+Windows Registry Editor Version 5.00
+
+; =====================================
+; DISABLE WINDOWS MOUSE ACCELERATION
+; =====================================
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"MouseSpeed"="0"
+"MouseThreshold1"="0"
+"MouseThreshold2"="0"
+
+; =====================================
+; PERFECT 1:1 MOUSE INPUT (AIM LOCK)
+; =====================================
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"SmoothMouseXCurve"=hex:\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00
+
+"SmoothMouseYCurve"=hex:\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00,\
+00,00,00,00,00,00,00,00
+
+; =====================================
+; REDUCE INPUT BUFFERING (STEADY AIM)
+; =====================================
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouclass\Parameters]
+"MouseDataQueueSize"=dword:00000020
