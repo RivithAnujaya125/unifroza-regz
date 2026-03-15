@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Vault — download optimized emulators, APKs, and registry tweaks for peak gaming performance.">
+  <title>Vault — UniFroza Regz</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== VIDEO BACKGROUND ========== -->
+  <div class="video-bg">
+    <video autoplay loop muted playsinline>
+      <source src="assets/videos/bg-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- ========== BACKGROUND MUSIC ========== -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🎵</button>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li id="nav-dashboard" style="display:none"><a href="downloads.html" class="active">Vault</a></li>
+        <li id="nav-login"><a href="login.html">Login</a></li>
+        <li id="nav-register"><a href="register.html" class="nav-cta">Register</a></li>
+        <li id="nav-logout" style="display:none"><a href="#" id="logout-btn" class="nav-cta">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== VAULT CATALOG ========== -->
+  <main class="downloads-page" id="vault-content" style="display:none;">
+    <div class="container">
+      
+      <!-- Welcome Banner -->
+      <div class="dashboard__welcome animate-in" style="margin-top: 20px;">
+        <h1>Welcome to the Vault, <span id="dash-username">User</span> 👋</h1>
+        <p>Your exclusive armory for peak gaming performance is ready below.</p>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🕹️ EMULATORS                   -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title">🕹️ Emulators</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>BlueStacks P64</h3>
+            <span class="download-card__tag download-card__tag--emu">Emulator</span>
+          </div>
+          <p>64-bit Android emulator optimized for gaming with advanced key-mapping, high FPS support, and multi-instance capability.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">Emulator</span>
+            <a href="downloads/BlueStacksInstaller_5.22.166.1003_native_88aff92444d9ea84d62d8e39d75c61f5_MzsxNQ==.exe" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>MSI App Player</h3>
+            <span class="download-card__tag download-card__tag--emu">Emulator</span>
+          </div>
+          <p>MSI's customized Android emulator built on BlueStacks engine, tailored for MSI hardware with exclusive performance optimizations.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">Emulator</span>
+            <a href="downloads/MSI-APP-Player.zip" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>Google Play Games Beta</h3>
+            <span class="download-card__tag download-card__tag--emu">Emulator</span>
+          </div>
+          <p>Google's official PC platform for playing Android games natively on Windows with seamless Google account sync and optimized performance.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">Emulator</span>
+            <a href="https://www.mediafire.com/file/kdv1qp91vsio6t6/Install-GooglePlayGames.exe/file" class="btn btn--primary btn--sm" target="_blank">⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 📦 APKs                         -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title">📦 APKs</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>Free Fire</h3>
+            <span class="download-card__tag download-card__tag--apk">APK</span>
+          </div>
+          <p>Garena Free Fire battle royale APK — ready to sideload into your emulator for instant setup without Play Store.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">APK</span>
+            <a href="https://www.mediafire.com/file/bmdiywezhuhxnqn/FreeFire.apk/file" class="btn btn--primary btn--sm" target="_blank">⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🎯 RECOIL CONTROL              -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title">🎯 Recoil Control</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>EMULATOR NO RECOIL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Eliminates recoil patterns in emulator environments for smoother aiming and consistent spray control.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">9 KB</span>
+            <a href="downloads/EMULATOR NO RECOIL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>GOLD NO RECOIL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Premium-tier recoil suppression registry tweak for the most stable crosshair control during sustained fire.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">7 KB</span>
+            <a href="downloads/GOLD NO RECOIL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>MOUSE NO RECOIL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Mouse-specific recoil compensation tweak that adjusts input curves for reduced vertical kick.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/MOUSE NO RECOIL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>REG RECOIL CONTROL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>General-purpose registry-level recoil control that fine-tunes DirectInput response curves.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">3 KB</span>
+            <a href="downloads/REG RECOIL CONTROL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>UMP RECOIL FIX</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Targeted fix for UMP-specific recoil patterns, smoothing out burst and full-auto spray behavior.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/UMP_RECOIL_FIX.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🔫 AIM OPTIMIZATION            -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title">🔫 Aim Optimization</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>Aimbot CONTROL V2.1</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Advanced aim-assist registry configuration that enhances mouse tracking precision and target acquisition speed.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/Aimbot_CONTROL V2.1.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>AimLock Mouse Precision</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Locks mouse precision settings at optimal values, preventing Windows from overriding your aim configuration.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/AimLock Mouse Precision.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>DntAimHead.HATE</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Specialized aim-behavior registry tweak that adjusts head-level targeting parameters for FPS games.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">5 KB</span>
+            <a href="downloads/DntAimHead.HATE.Reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🖱️ MOUSE & SENSITIVITY         -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title">🖱️ Mouse &amp; Sensitivity</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>Delete Mouse - Sensi</h3>
+            <span class="download-card__tag download-card__tag--bat">Batch</span>
+          </div>
+          <p>Batch script that resets all mouse sensitivity overrides back to Windows defaults for a clean slate.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">36 KB</span>
+            <a href="downloads/Delete Mouse - Sensi.bat" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>New Sensi</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Optimized mouse sensitivity profile that balances precision aiming with fast flick response.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/New Sensi.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>Vibraton Fix V7</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Eliminates unwanted mouse vibration and jitter by tuning HID polling and input smoothing parameters.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/Vibraton Fix V7.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- ⚡ SYSTEM PERFORMANCE           -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title">⚡ System Performance</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>CPU Priority</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Sets CPU scheduling priority for gaming processes to high, reducing context-switch overhead and frame drops.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/Cpu Priority.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>GPU Priority</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Assigns maximum GPU scheduling priority and adjusts DVFS thresholds for sustained high clock speeds.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/GPU_Priority.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>Power Optimize</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Configures power management for maximum performance — disables throttling, core parking, and USB selective suspend.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">7 KB</span>
+            <a href="downloads/Power Optimize.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card animate-in">
+          <div class="download-card__header">
+            <h3>System Response</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Tunes system responsiveness by optimizing timer resolution, memory management, and I/O priorities for gaming.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">7 KB</span>
+            <a href="downloads/System Response.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__brand"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></span>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="downloads.html">Vault</a></li>
+          <li><a href="https://discord.gg/PNRYRgHW" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://www.tiktok.com/@unifroza_?_r=1&_t=ZS-94iMGMIr8DN" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://wa.me/94721640450" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">&copy; 2026 UniFroza Regz. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { logoutUser } from './js/auth.js';
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Handle logout link
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      logoutUser();
+    });
+  </script>
+</body>
+</html>

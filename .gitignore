@@ -1,0 +1,5 @@
+downloads/
+node_modules/
+.vercel/
+.vercelignore
+*.log

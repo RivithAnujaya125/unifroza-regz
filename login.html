@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login to UniFroza Regz to access exclusive registry tweaks.">
+  <title>Login — UniFroza Regz</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== VIDEO BACKGROUND ========== -->
+  <div class="video-bg">
+    <video autoplay loop muted playsinline>
+      <source src="assets/videos/bg-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- ========== BACKGROUND MUSIC ========== -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🎵</button>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li id="nav-dashboard" style="display:none"><a href="downloads.html">Vault</a></li>
+        <li id="nav-login"><a href="login.html" class="active">Login</a></li>
+        <li id="nav-register"><a href="register.html" class="nav-cta">Register</a></li>
+        <li id="nav-logout" style="display:none"><a href="#" id="logout-btn" class="nav-cta">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== LOGIN FORM ========== -->
+  <main class="auth-page">
+    <div class="auth-card animate-in">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtitle">Sign in to access your dashboard and downloads.</p>
+
+      <form id="loginForm" novalidate>
+        <!-- Username or Email -->
+        <div class="form-group">
+          <label for="login-identifier">Username or Email</label>
+          <input type="text" id="login-identifier" placeholder="you@example.com" required>
+          <p class="form-error" id="login-identifier-error">Please enter your username or email.</p>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+          <p class="form-error" id="login-password-error">Please enter your password.</p>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">Sign In</button>
+      </form>
+
+      <p class="auth-footer">
+        Don't have an account? <a href="register.html">Create one</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Toast container for feedback -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { loginUser, showFieldError, clearErrors, showToast, logoutUser } from './js/auth.js';
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Handle logout
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      logoutUser();
+    });
+
+    // ---- Login form handler ----
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const identifier = document.getElementById('login-identifier').value.trim();
+      const password   = document.getElementById('login-password').value;
+
+      let valid = true;
+      if (!identifier) {
+        showFieldError('login-identifier', 'Please enter your email.');
+        valid = false;
+      }
+      if (!password) {
+        showFieldError('login-password', 'Please enter your password.');
+        valid = false;
+      }
+
+      const btn = this.querySelector('button[type="submit"]');
+      if (!valid) return;
+
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+
+      const result = await loginUser(identifier, password);
+      
+      btn.textContent = 'Sign In';
+      btn.disabled = false;
+
+      if (result.success) {
+        showToast('Login successful! Redirecting…', 'success');
+        // Redirection happens automatically inside auth.js onAuthStateChanged
+      } else {
+        showToast(result.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Boost your gaming performance with optimized emulators and registry tweaks. Free downloads for maximum FPS.">
+  <title>UniFroza Regz — Unlock Peak Performance</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== VIDEO BACKGROUND ========== -->
+  <div class="video-bg">
+    <video autoplay loop muted playsinline>
+      <source src="assets/videos/bg-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- ========== BACKGROUND MUSIC ========== -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🎵</button>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></a>
+
+      <!-- Mobile hamburger toggle -->
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li id="nav-dashboard" style="display:none"><a href="downloads.html">Vault</a></li>
+        <!-- Auth-dependent links injected by auth.js -->
+        <li id="nav-login"><a href="login.html">Login</a></li>
+        <li id="nav-register"><a href="register.html" class="nav-cta">Register</a></li>
+        <li id="nav-logout" style="display:none"><a href="#" id="logout-btn" class="nav-cta">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero__badge">🎮 Next-Gen Optimization</span>
+      <h1 class="hero__title">Unlock Peak<br>Gaming Performance</h1>
+      <p class="hero__subtitle">
+        Download hand-tuned emulators and precision registry tweaks
+        engineered to squeeze every last frame out of your hardware.
+      </p>
+      <div class="hero__actions">
+        <a href="register.html" class="btn btn--primary">Get Started →</a>
+        <a href="downloads.html" class="btn btn--secondary">Browse Downloads</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why UniFroza Regz?</h2>
+        <p>Expertly crafted registry tweaks and optimizations from a malware developer's perspective.</p>
+      </div>
+
+      <div class="features__grid">
+        <!-- Card 1 -->
+        <div class="feature-card animate-in">
+          <div class="feature-card__icon feature-card__icon--cyan">🕹️</div>
+          <h3>Optimized Emulators</h3>
+          <p>Pre-configured emulators with custom builds, shader caches, and overclocked settings for butter-smooth gameplay.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card animate-in">
+          <div class="feature-card__icon feature-card__icon--purple">🔧</div>
+          <h3>Registry Tweaks</h3>
+          <p>Carefully crafted .reg files that fine-tune Windows for gaming — disable bloat, reduce latency, and boost throughput.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card animate-in">
+          <div class="feature-card__icon feature-card__icon--magenta">🚀</div>
+          <h3>Performance Boost</h3>
+          <p>See measurable FPS gains and lower input lag. Our community has reported up to 40% improvement on mid-range rigs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STATS ========== -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div>
+          <div class="stat__value">12K+</div>
+          <div class="stat__label">Downloads</div>
+        </div>
+        <div>
+          <div class="stat__value">40%</div>
+          <div class="stat__label">Avg. FPS Boost</div>
+        </div>
+        <div>
+          <div class="stat__value">15+</div>
+          <div class="stat__label">Emulators</div>
+        </div>
+        <div>
+          <div class="stat__value">5K+</div>
+          <div class="stat__label">Active Users</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ME ========== -->
+  <section class="about" id="about">
+    <div class="container" style="max-width: 800px; padding: 80px 24px; text-align: center;">
+      <div class="section-header">
+        <h2>About the Developer</h2>
+        <p style="color: var(--cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 8px;">> WHOAMI</p>
+      </div>
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 40px; text-align: left; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--cyan), var(--purple));"></div>
+        <h3 style="margin-bottom: 16px; font-size: 1.5rem;">UniFroza <span style="font-size: 1rem; color: var(--text-muted); font-family: monospace;">[ Malware Enthusiast / Software Developer ]</span></h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.8;">
+          I'm a software developer with a deep interest in malware development and low-level system internals. By understanding how the Windows OS operates under the hood — and how malicious actors manipulate it — I've learned exactly how to extract the maximum possible performance out of hardware and software.
+        </p>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+          <strong>UniFroza Regz</strong> is my personal project to share reverse-engineered optimizations, custom batch scripts, and highly tuned registry configurations designed for competitive gaming, particularly in emulator environments like Free Fire.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__brand"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></span>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="downloads.html">Vault</a></li>
+          <li><a href="https://discord.gg/PNRYRgHW" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://www.tiktok.com/@unifroza_?_r=1&_t=ZS-94iMGMIr8DN" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://wa.me/94721640450" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">&copy; 2026 UniFroza Regz. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { logoutUser } from './js/auth.js';
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Handle logout
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      logoutUser();
+    });
+  </script>
+</body>
+</html>
