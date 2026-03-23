@@ -6,6 +6,100 @@
   <meta name="description" content="Boost your gaming performance with optimized emulators and registry tweaks. Free downloads for maximum FPS.">
   <title>UniFroza Regz — Unlock Peak Performance</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Shepherd.js Guided Tour -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.3/dist/css/shepherd.css">
+  <style>
+    /* ===== Shepherd Tour — Gaming Theme ===== */
+    .shepherd-element { z-index: 10000 !important; }
+    .shepherd-modal-overlay-container { z-index: 9999 !important; }
+    .shepherd-content {
+      background: rgba(18, 18, 30, 0.97) !important;
+      border: 1px solid rgba(0, 240, 255, 0.2) !important;
+      border-radius: 16px !important;
+      backdrop-filter: blur(20px) !important;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 240, 255, 0.08) !important;
+    }
+    .shepherd-header {
+      background: transparent !important;
+      padding: 20px 24px 4px !important;
+    }
+    .shepherd-title {
+      font-family: 'Orbitron', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #e8e8f0 !important;
+    }
+    .shepherd-cancel-icon {
+      color: #8a8a9f !important;
+      font-size: 1.6rem !important;
+    }
+    .shepherd-cancel-icon:hover { color: #ff2d8a !important; }
+    .shepherd-text {
+      color: #8a8a9f !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 0.92rem !important;
+      line-height: 1.6 !important;
+      padding: 12px 24px 20px !important;
+    }
+    .shepherd-footer {
+      padding: 0 24px 20px !important;
+      border-top: none !important;
+    }
+    .shepherd-button {
+      background: linear-gradient(135deg, #00f0ff, #7b2dff) !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 10px !important;
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+      padding: 10px 22px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+    }
+    .shepherd-button:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3) !important;
+    }
+    .shepherd-button-secondary {
+      background: rgba(255, 255, 255, 0.06) !important;
+      color: #8a8a9f !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    .shepherd-button-secondary:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #e8e8f0 !important;
+      box-shadow: none !important;
+    }
+    .shepherd-arrow:before {
+      background: rgba(18, 18, 30, 0.97) !important;
+      border: 1px solid rgba(0, 240, 255, 0.2) !important;
+    }
+    /* Tour trigger button */
+    .tour-trigger {
+      position: fixed;
+      bottom: 88px;
+      right: 24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(18, 18, 30, 0.75);
+      border: 1px solid rgba(123, 45, 255, 0.4);
+      color: #7b2dff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 0 20px rgba(123, 45, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tour-trigger:hover {
+      transform: scale(1.1);
+      background: rgba(123, 45, 255, 0.15);
+    }
+  </style>
 </head>
 <body>
 
@@ -22,6 +116,9 @@
     <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
   </audio>
   <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🎵</button>
+
+  <!-- Guided Tour Trigger Button -->
+  <button id="startTourBtn" class="tour-trigger" aria-label="Take a Tour" title="Take a Tour">🗺️</button>
 
   <!-- ========== NAVBAR ========== -->
   <nav class="navbar" id="navbar">
@@ -175,5 +272,9 @@
   <script>
     window.botpress.init({ configUrl: "https://files.bpcontent.cloud/2026/03/23/21/20260323212212-JXH45J7C.json" });
   </script>
+
+  <!-- Shepherd.js Guided Tour -->
+  <script src="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.3/dist/js/shepherd.min.js"></script>
+  <script src="js/tour.js"></script>
 </body>
 </html>
