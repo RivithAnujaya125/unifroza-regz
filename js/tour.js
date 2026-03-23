@@ -111,7 +111,7 @@ function initTour() {
 }
 
 // Auto-start tour for first-time visitors (after a short delay)
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
   const tourCompleted = localStorage.getItem('uf_tour_completed');
 
   if (!tourCompleted) {
@@ -129,4 +129,4 @@ document.addEventListener('DOMContentLoaded', () => {
       tour.start();
     });
   }
-});
+})();
