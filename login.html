@@ -9,6 +9,9 @@
 </head>
 <body>
 
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
   <!-- ========== VIDEO BACKGROUND ========== -->
   <div class="video-bg">
     <video autoplay loop muted playsinline>
@@ -119,7 +122,6 @@
 
       if (result.success) {
         showToast('Login successful! Redirecting…', 'success');
-        // Redirection happens automatically inside auth.js onAuthStateChanged
       } else {
         showToast(result.message, 'error');
       }
@@ -131,5 +133,8 @@
   <script>
     window.botpress.init({ configUrl: "https://files.bpcontent.cloud/2026/03/23/21/20260323212212-JXH45J7C.json" });
   </script>
+
+  <!-- Effects Engine -->
+  <script src="js/effects.js"></script>
 </body>
 </html>

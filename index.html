@@ -94,6 +94,7 @@
       z-index: 1000;
       box-shadow: 0 0 20px rgba(123, 45, 255, 0.3);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
     }
     .tour-trigger:hover {
       transform: scale(1.1);
@@ -102,6 +103,9 @@
   </style>
 </head>
 <body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
 
   <!-- ========== VIDEO BACKGROUND ========== -->
   <div class="video-bg">
@@ -157,31 +161,34 @@
     </div>
   </section>
 
+  <!-- ═══ Neon Divider ═══ -->
+  <hr class="neon-divider">
+
   <!-- ========== FEATURES ========== -->
   <section class="features">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Why UniFroza Regz?</h2>
         <p>Expertly crafted registry tweaks and optimizations from a malware developer's perspective.</p>
       </div>
 
       <div class="features__grid">
         <!-- Card 1 -->
-        <div class="feature-card animate-in">
+        <div class="feature-card reveal">
           <div class="feature-card__icon feature-card__icon--cyan">🕹️</div>
           <h3>Optimized Emulators</h3>
           <p>Pre-configured emulators with custom builds, shader caches, and overclocked settings for butter-smooth gameplay.</p>
         </div>
 
         <!-- Card 2 -->
-        <div class="feature-card animate-in">
+        <div class="feature-card reveal">
           <div class="feature-card__icon feature-card__icon--purple">🔧</div>
           <h3>Registry Tweaks</h3>
           <p>Carefully crafted .reg files that fine-tune Windows for gaming — disable bloat, reduce latency, and boost throughput.</p>
         </div>
 
         <!-- Card 3 -->
-        <div class="feature-card animate-in">
+        <div class="feature-card reveal">
           <div class="feature-card__icon feature-card__icon--magenta">🚀</div>
           <h3>Performance Boost</h3>
           <p>See measurable FPS gains and lower input lag. Our community has reported up to 40% improvement on mid-range rigs.</p>
@@ -190,8 +197,11 @@
     </div>
   </section>
 
+  <!-- ═══ Neon Divider ═══ -->
+  <hr class="neon-divider">
+
   <!-- ========== STATS ========== -->
-  <section class="stats">
+  <section class="stats reveal">
     <div class="container">
       <div class="stats__grid">
         <div>
@@ -214,15 +224,17 @@
     </div>
   </section>
 
+  <!-- ═══ Neon Divider ═══ -->
+  <hr class="neon-divider">
+
   <!-- ========== ABOUT ME ========== -->
-  <section class="about" id="about">
+  <section class="about reveal" id="about">
     <div class="container" style="max-width: 800px; padding: 80px 24px; text-align: center;">
       <div class="section-header">
         <h2>About the Developer</h2>
         <p style="color: var(--cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 8px;">> WHOAMI</p>
       </div>
-      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 40px; text-align: left; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--cyan), var(--purple));"></div>
+      <div class="about-card">
         <h3 style="margin-bottom: 16px; font-size: 1.5rem;">UniFroza <span style="font-size: 1rem; color: var(--text-muted); font-family: monospace;">[ Malware Enthusiast / Software Developer ]</span></h3>
         <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.8;">
           I'm a software developer with a deep interest in malware development and low-level system internals. By understanding how the Windows OS operates under the hood — and how malicious actors manipulate it — I've learned exactly how to extract the maximum possible performance out of hardware and software.
@@ -276,5 +288,8 @@
   <!-- Shepherd.js Guided Tour -->
   <script src="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.3/dist/js/shepherd.min.js"></script>
   <script src="js/tour.js"></script>
+
+  <!-- Effects Engine -->
+  <script src="js/effects.js"></script>
 </body>
 </html>
