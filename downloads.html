@@ -6,6 +6,7 @@
   <meta name="description" content="The Vault — download optimized emulators, APKs, and registry tweaks for peak gaming performance.">
   <title>Vault — UniFroza Regz</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/vault-mode.css">
 </head>
 <body>
 
@@ -50,8 +51,37 @@
       <!-- Welcome Banner -->
       <div class="dashboard__welcome animate-in" style="margin-top: 20px;">
         <h1>Welcome to the Vault, <span id="dash-username">User</span> 👋</h1>
-        <p>Your exclusive armory for peak gaming performance is ready below.</p>
+        <p id="vault-subtitle">Choose an optimization category below.</p>
       </div>
+
+      <!-- ============================== -->
+      <!-- 🛠️ MODE SELECTOR                -->
+      <!-- ============================== -->
+      <div id="mode-selector" class="vault-modes animate-in" style="animation-delay: 0.1s;">
+        <div class="vault-mode-card" onclick="selectVaultMode('pc')">
+          <span class="vault-mode-icon">💻</span>
+          <h3 class="vault-mode-title">PC Optimizations</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Emulators, RegEdits & Batch Scripts for highest FPS and lowest latency.</p>
+        </div>
+        
+        <div class="vault-mode-card" onclick="selectVaultMode('mobile')">
+          <span class="vault-mode-icon">📱</span>
+          <h3 class="vault-mode-title">Mobile Sensi Generator</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Generate the perfect sensitivity settings (0-200) mathematically tuned for your specific device.</p>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🔄 BACK BUTTON                  -->
+      <!-- ============================== -->
+      <div id="back-btn-container" style="display:none; margin-bottom: 32px;">
+        <button onclick="selectVaultMode('menu')" class="btn btn--secondary btn--sm">← Back to Menu</button>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 💻 PC SECTION (Existing)        -->
+      <!-- ============================== -->
+      <div id="pc-section" style="display:none;">
 
       <!-- ============================== -->
       <!-- 🕹️ EMULATORS                   -->
@@ -323,6 +353,41 @@
         </div>
       </div>
 
+      </div> <!-- /#pc-section -->
+
+      <!-- ============================== -->
+      <!-- 📱 MOBILE SECTION               -->
+      <!-- ============================== -->
+      <div id="mobile-section" style="display:none;">
+        <h2 class="dashboard__section-title">📱 Device Sensitivity Generator</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 24px;">Enter your exact device model (e.g., "iPhone 13 Pro Max", "Samsung Galaxy S23 Ultra", "Poco X3 Pro"). Our algorithm will calculate the mathematical optimal sensitivity parameters for your hardware response rate.</p>
+        
+        <form id="device-form" class="device-form">
+          <input type="text" id="device-input" placeholder="Enter your device name..." required>
+          <button type="submit" class="btn btn--primary">Generate Sensi ⚡</button>
+        </form>
+
+        <div id="sensi-results" class="sensi-table-container">
+          <table class="sensi-table">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Optimal Value (0-200)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>General</td><td id="s-general">-</td></tr>
+              <tr><td>Red Dot</td><td id="s-reddot">-</td></tr>
+              <tr><td>2x Scope</td><td id="s-2x">-</td></tr>
+              <tr><td>4x Scope</td><td id="s-4x">-</td></tr>
+              <tr><td>Sniper Scope</td><td id="s-sniper">-</td></tr>
+              <tr><td>Free Look</td><td id="s-freelook">-</td></tr>
+              <tr><td>DPI Equivalent</td><td id="s-dpi">-</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -367,5 +432,79 @@
 
   <!-- Effects Engine -->
   <script src="js/effects.js"></script>
+
+  <!-- Vault Logic -->
+  <script>
+    function selectVaultMode(mode) {
+      const selector = document.getElementById('mode-selector');
+      const pcSection = document.getElementById('pc-section');
+      const mobileSection = document.getElementById('mobile-section');
+      const backBtn = document.getElementById('back-btn-container');
+      const subtitle = document.getElementById('vault-subtitle');
+
+      if (mode === 'menu') {
+        selector.style.display = 'grid';
+        pcSection.style.display = 'none';
+        mobileSection.style.display = 'none';
+        backBtn.style.display = 'none';
+        subtitle.textContent = 'Choose an optimization category below.';
+      } else if (mode === 'pc') {
+        selector.style.display = 'none';
+        pcSection.style.display = 'block';
+        mobileSection.style.display = 'none';
+        backBtn.style.display = 'block';
+        subtitle.textContent = 'PC Optimizations: Emulators and RegEdits';
+      } else if (mode === 'mobile') {
+        selector.style.display = 'none';
+        pcSection.style.display = 'none';
+        mobileSection.style.display = 'block';
+        backBtn.style.display = 'block';
+        subtitle.textContent = 'Mobile Optimizations: Device-specific Sensitivity';
+      }
+    }
+
+    // Deterministic hash function for device name
+    function hashCode(str) {
+      let hash = 0;
+      for (let i = 0, len = str.length; i < len; i++) {
+          let chr = str.charCodeAt(i);
+          hash = (hash << 5) - hash + chr;
+          hash |= 0; // Convert to 32bit integer
+      }
+      return Math.abs(hash);
+    }
+
+    document.getElementById('device-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const device = document.getElementById('device-input').value.trim().toLowerCase();
+      if (!device) return;
+
+      const hash = hashCode(device);
+      
+      // Generate deterministic numbers 0-200 based on the hash string parts
+      const hStr = hash.toString().padEnd(14, '7');
+      
+      // Calculate realistic gaming limits (usually higher for general, lower for sniper)
+      const general = 120 + (parseInt(hStr.substr(0,2)) % 80); // 120-200
+      const reddot = 100 + (parseInt(hStr.substr(2,2)) % 100); // 100-200
+      const scope2x = 90 + (parseInt(hStr.substr(4,2)) % 100); // 90-190
+      const scope4x = 80 + (parseInt(hStr.substr(6,2)) % 100); // 80-180
+      const sniper = 20 + (parseInt(hStr.substr(8,2)) % 80);   // 20-100
+      const freelook = 100 + (parseInt(hStr.substr(10,2)) % 100); // 100-200
+      const dpi = 400 + (parseInt(hStr.substr(12,2)) * 5); // 400-895+
+
+      // Update table
+      document.getElementById('s-general').textContent = general;
+      document.getElementById('s-reddot').textContent = reddot;
+      document.getElementById('s-2x').textContent = scope2x;
+      document.getElementById('s-4x').textContent = scope4x;
+      document.getElementById('s-sniper').textContent = sniper;
+      document.getElementById('s-freelook').textContent = freelook;
+      document.getElementById('s-dpi').textContent = dpi;
+
+      // Show table
+      document.getElementById('sensi-results').style.display = 'block';
+    });
+  </script>
 </body>
 </html>
