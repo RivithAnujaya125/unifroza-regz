@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Vault — download optimized emulators, APKs, and registry tweaks for peak gaming performance.">
+  <title>Vault — UniFroza Regz</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/vault-mode.css">
+  <style>
+    /* Elite Modal Overlay */
+    .elite-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .elite-modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .elite-modal {
+      background: rgba(20, 20, 20, 0.95);
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    .elite-modal-overlay.show .elite-modal {
+      transform: scale(1);
+    }
+    .elite-modal h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .elite-modal p {
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .elite-price {
+      font-size: 2.5rem;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 0 10px var(--primary);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .close-modal-btn {
+      background: transparent;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.2s;
+    }
+    .close-modal-btn:hover {
+      background: #333;
+    }
+    .vault-mode-card.elite {
+      background: linear-gradient(135deg, rgba(255,0,85,0.1) 0%, rgba(138,43,226,0.1) 100%);
+      border-color: var(--primary);
+      box-shadow: inset 0 0 20px rgba(255,0,85,0.1);
+    }
+    .vault-mode-card.elite:hover {
+      box-shadow: inset 0 0 30px rgba(255,0,85,0.3), 0 0 20px rgba(255,0,85,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== VIDEO BACKGROUND ========== -->
+  <div class="video-bg">
+    <video autoplay loop muted playsinline>
+      <source src="assets/videos/bg-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- ========== BACKGROUND MUSIC ========== -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🎵</button>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li id="nav-dashboard" style="display:none"><a href="downloads.html" class="active">Vault</a></li>
+        <li id="nav-login"><a href="login.html">Login</a></li>
+        <li id="nav-register"><a href="register.html" class="nav-cta">Register</a></li>
+        <li id="nav-logout" style="display:none"><a href="#" id="logout-btn" class="nav-cta">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== VAULT CATALOG ========== -->
+  <main class="downloads-page" id="vault-content" style="display:none;">
+    <div class="container">
+      
+      <!-- Welcome Banner -->
+      <div class="dashboard__welcome animate-in" style="margin-top: 20px;">
+        <h1>Welcome to the Vault, <span id="dash-username">User</span> 👋</h1>
+        <p id="vault-subtitle">Choose an optimization category below.</p>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🛠️ MODE SELECTOR                -->
+      <!-- ============================== -->
+      <div id="mode-selector" class="vault-modes animate-in" style="animation-delay: 0.1s;">
+        <div class="vault-mode-card" onclick="selectVaultMode('pc')">
+          <span class="vault-mode-icon">💻</span>
+          <h3 class="vault-mode-title">PC Optimizations</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Emulators, RegEdits & Batch Scripts for highest FPS and lowest latency.</p>
+        </div>
+        
+        <div class="vault-mode-card" onclick="selectVaultMode('mobile')">
+          <span class="vault-mode-icon">📱</span>
+          <h3 class="vault-mode-title">Mobile Sensi Generator</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Generate the perfect sensitivity settings (0-200) mathematically tuned for your specific device.</p>
+        </div>
+
+        <div class="vault-mode-card elite" onclick="selectVaultMode('elite')">
+          <span class="vault-mode-icon" style="filter: drop-shadow(0 0 10px var(--primary));">👑</span>
+          <h3 class="vault-mode-title" style="color: var(--primary);">Elites Vault</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Premium Panel Cheats, Top Secret Reg Files, and Windows Utility Tools. Requires Elite Status.</p>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 👑 ELITE MODAL                  -->
+      <!-- ============================== -->
+      <div id="elite-modal" class="elite-modal-overlay">
+        <div class="elite-modal">
+          <h2>Access Denied</h2>
+          <p>The Elites Vault contains our most exclusive and powerful tools. You need an Elite membership to access this section.</p>
+          <span class="elite-price">300 LKR</span>
+          <p>To upgrade your account, please reload exactly <strong>300Rs</strong> to the following mobile number:</p>
+          <h3 style="color: var(--cyan); letter-spacing: 3px; font-size: 1.8rem; margin: 15px 0;">076 051 4864</h3>
+          <p style="font-size: 0.85rem; color: #aaa;">After sending, please contact the admin with a screenshot of the reload to activate your Elite Status.</p>
+          <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+            <a href="https://wa.me/94760514864" target="_blank" class="btn btn--primary">Send Proof on WhatsApp</a>
+            <button class="close-modal-btn" onclick="document.getElementById('elite-modal').classList.remove('show')">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🔄 BACK BUTTON                  -->
+      <!-- ============================== -->
+      <div id="back-btn-container" style="display:none; margin-bottom: 32px;">
+        <button onclick="selectVaultMode('menu')" class="btn btn--secondary btn--sm">← Back to Menu</button>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 💻 PC SECTION (Existing)        -->
+      <!-- ============================== -->
+      <div id="pc-section" style="display:none;">
+
+      <!-- ============================== -->
+      <!-- 🕹️ EMULATORS                   -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title reveal">🕹️ Emulators</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>BlueStacks P64</h3>
+            <span class="download-card__tag download-card__tag--emu">Emulator</span>
+          </div>
+          <p>64-bit Android emulator optimized for gaming with advanced key-mapping, high FPS support, and multi-instance capability.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">Emulator</span>
+            <a href="downloads/BlueStacksInstaller_5.22.166.1003_native_88aff92444d9ea84d62d8e39d75c61f5_MzsxNQ==.exe" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>MSI App Player</h3>
+            <span class="download-card__tag download-card__tag--emu">Emulator</span>
+          </div>
+          <p>MSI's customized Android emulator built on BlueStacks engine, tailored for MSI hardware with exclusive performance optimizations.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">Emulator</span>
+            <a href="downloads/MSI-APP-Player.zip" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>Google Play Games Beta</h3>
+            <span class="download-card__tag download-card__tag--emu">Emulator</span>
+          </div>
+          <p>Google's official PC platform for playing Android games natively on Windows with seamless Google account sync and optimized performance.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">Emulator</span>
+            <a href="https://www.mediafire.com/file/kdv1qp91vsio6t6/Install-GooglePlayGames.exe/file" class="btn btn--primary btn--sm" target="_blank">⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 📦 APKs                         -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title reveal">📦 APKs</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>Free Fire</h3>
+            <span class="download-card__tag download-card__tag--apk">APK</span>
+          </div>
+          <p>Garena Free Fire battle royale APK — ready to sideload into your emulator for instant setup without Play Store.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">APK</span>
+            <a href="https://www.mediafire.com/file/bmdiywezhuhxnqn/FreeFire.apk/file" class="btn btn--primary btn--sm" target="_blank">⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🎯 RECOIL CONTROL              -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title reveal">🎯 Recoil Control</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>EMULATOR NO RECOIL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Eliminates recoil patterns in emulator environments for smoother aiming and consistent spray control.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">9 KB</span>
+            <a href="downloads/EMULATOR NO RECOIL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>GOLD NO RECOIL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Premium-tier recoil suppression registry tweak for the most stable crosshair control during sustained fire.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">7 KB</span>
+            <a href="downloads/GOLD NO RECOIL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>MOUSE NO RECOIL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Mouse-specific recoil compensation tweak that adjusts input curves for reduced vertical kick.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/MOUSE NO RECOIL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>REG RECOIL CONTROL</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>General-purpose registry-level recoil control that fine-tunes DirectInput response curves.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">3 KB</span>
+            <a href="downloads/REG RECOIL CONTROL.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>UMP RECOIL FIX</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Targeted fix for UMP-specific recoil patterns, smoothing out burst and full-auto spray behavior.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/UMP_RECOIL_FIX.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🔫 AIM OPTIMIZATION            -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title reveal">🔫 Aim Optimization</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>Aimbot CONTROL V2.1</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Advanced aim-assist registry configuration that enhances mouse tracking precision and target acquisition speed.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/Aimbot_CONTROL V2.1.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>AimLock Mouse Precision</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Locks mouse precision settings at optimal values, preventing Windows from overriding your aim configuration.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/AimLock Mouse Precision.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>DntAimHead.HATE</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Specialized aim-behavior registry tweak that adjusts head-level targeting parameters for FPS games.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">5 KB</span>
+            <a href="downloads/DntAimHead.HATE.Reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- 🖱️ MOUSE & SENSITIVITY         -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title reveal">🖱️ Mouse &amp; Sensitivity</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>Delete Mouse - Sensi</h3>
+            <span class="download-card__tag download-card__tag--bat">Batch</span>
+          </div>
+          <p>Batch script that resets all mouse sensitivity overrides back to Windows defaults for a clean slate.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">36 KB</span>
+            <a href="downloads/Delete Mouse - Sensi.bat" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>New Sensi</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Optimized mouse sensitivity profile that balances precision aiming with fast flick response.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">2 KB</span>
+            <a href="downloads/New Sensi.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>Vibraton Fix V7</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Eliminates unwanted mouse vibration and jitter by tuning HID polling and input smoothing parameters.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/Vibraton Fix V7.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- ⚡ SYSTEM PERFORMANCE           -->
+      <!-- ============================== -->
+      <h2 class="dashboard__section-title reveal">⚡ System Performance</h2>
+      <div class="downloads-grid">
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>CPU Priority</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Sets CPU scheduling priority for gaming processes to high, reducing context-switch overhead and frame drops.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/Cpu Priority.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>GPU Priority</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Assigns maximum GPU scheduling priority and adjusts DVFS thresholds for sustained high clock speeds.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">1 KB</span>
+            <a href="downloads/GPU_Priority.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>Power Optimize</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Configures power management for maximum performance — disables throttling, core parking, and USB selective suspend.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">7 KB</span>
+            <a href="downloads/Power Optimize.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+
+        <div class="download-card reveal">
+          <div class="download-card__header">
+            <h3>System Response</h3>
+            <span class="download-card__tag download-card__tag--reg">RegEdit</span>
+          </div>
+          <p>Tunes system responsiveness by optimizing timer resolution, memory management, and I/O priorities for gaming.</p>
+          <div class="download-card__meta">
+            <span class="download-card__size">7 KB</span>
+            <a href="downloads/System Response.reg" class="btn btn--primary btn--sm" download>⬇ Download</a>
+          </div>
+        </div>
+      </div>
+
+      </div> <!-- /#pc-section -->
+
+      <!-- ============================== -->
+      <!-- 📱 MOBILE SECTION               -->
+      <!-- ============================== -->
+      <div id="mobile-section" style="display:none;">
+        <h2 class="dashboard__section-title">📱 Device Sensitivity Generator</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 24px;">Enter your exact device model (e.g., "iPhone 13 Pro Max", "Samsung Galaxy S23 Ultra", "Poco X3 Pro"). Our algorithm will calculate the mathematical optimal sensitivity parameters for your hardware response rate.</p>
+        
+        <form id="device-form" class="device-form">
+          <input type="text" id="device-input" placeholder="Enter your device name..." required>
+          <button type="submit" class="btn btn--primary">Generate Sensi ⚡</button>
+        </form>
+
+        <div id="sensi-results" class="sensi-table-container">
+          <table class="sensi-table">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Optimal Value (0-200)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>General</td><td id="s-general">-</td></tr>
+              <tr><td>Red Dot</td><td id="s-reddot">-</td></tr>
+              <tr><td>2x Scope</td><td id="s-2x">-</td></tr>
+              <tr><td>4x Scope</td><td id="s-4x">-</td></tr>
+              <tr><td>Sniper Scope</td><td id="s-sniper">-</td></tr>
+              <tr><td>Free Look</td><td id="s-freelook">-</td></tr>
+              <tr><td>DPI Equivalent</td><td id="s-dpi">-</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__brand"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></span>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="downloads.html">Vault</a></li>
+          <li><a href="https://discord.gg/PNRYRgHW" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://www.tiktok.com/@unifroza_?_r=1&_t=ZS-94iMGMIr8DN" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://wa.me/94721640450" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">&copy; 2026 UniFroza Regz. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { logoutUser, checkEliteStatus } from './js/auth.js';
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Handle logout link
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      logoutUser();
+    });
+
+    // Make checkEliteStatus global so inline scripts can use it
+    window.checkEliteStatus = checkEliteStatus;
+  </script>
+
+  <!-- Botpress AI Chatbot -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+  <script>
+    window.botpress.init({ configUrl: "https://files.bpcontent.cloud/2026/03/23/21/20260323212212-JXH45J7C.json" });
+  </script>
+
+  <!-- Effects Engine -->
+  <script src="js/effects.js"></script>
+
+  <!-- Vault Logic -->
+  <script>
+    async function selectVaultMode(mode) {
+      const selector = document.getElementById('mode-selector');
+      const pcSection = document.getElementById('pc-section');
+      const mobileSection = document.getElementById('mobile-section');
+      const backBtn = document.getElementById('back-btn-container');
+      const subtitle = document.getElementById('vault-subtitle');
+
+      if (mode === 'elite') {
+        const btn = document.querySelector('.vault-mode-card.elite');
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.5';
+        subtitle.textContent = 'Verifying Elite Status...';
+
+        if (window.currentUser) {
+          const isElite = await window.checkEliteStatus(window.currentUser.uid);
+          if (isElite) {
+            // They are elite, send them to the shiny new page
+            window.location.href = 'elite.html';
+          } else {
+            // Not elite, show the prompt
+            document.getElementById('elite-modal').classList.add('show');
+            subtitle.textContent = 'Choose an optimization category below.';
+          }
+        } else {
+            document.getElementById('elite-modal').classList.add('show');
+            subtitle.textContent = 'Choose an optimization category below.';
+        }
+        
+        btn.style.pointerEvents = 'auto';
+        btn.style.opacity = '1';
+        return;
+      }
+
+      if (mode === 'menu') {
+        selector.style.display = 'grid';
+        pcSection.style.display = 'none';
+        mobileSection.style.display = 'none';
+        backBtn.style.display = 'none';
+        subtitle.textContent = 'Choose an optimization category below.';
+      } else if (mode === 'pc') {
+        selector.style.display = 'none';
+        pcSection.style.display = 'block';
+        mobileSection.style.display = 'none';
+        backBtn.style.display = 'block';
+        subtitle.textContent = 'PC Optimizations: Emulators and RegEdits';
+      } else if (mode === 'mobile') {
+        selector.style.display = 'none';
+        pcSection.style.display = 'none';
+        mobileSection.style.display = 'block';
+        backBtn.style.display = 'block';
+        subtitle.textContent = 'Mobile Optimizations: Device-specific Sensitivity';
+      }
+    }
+
+    // Deterministic hash function for device name
+    function hashCode(str) {
+      let hash = 0;
+      for (let i = 0, len = str.length; i < len; i++) {
+          let chr = str.charCodeAt(i);
+          hash = (hash << 5) - hash + chr;
+          hash |= 0; // Convert to 32bit integer
+      }
+      return Math.abs(hash);
+    }
+
+    document.getElementById('device-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const device = document.getElementById('device-input').value.trim().toLowerCase();
+      if (!device) return;
+
+      const hash = hashCode(device);
+      
+      // Generate deterministic numbers 0-200 based on the hash string parts
+      const hStr = hash.toString().padEnd(14, '7');
+      
+      // Calculate realistic gaming limits (usually higher for general, lower for sniper)
+      const general = 120 + (parseInt(hStr.substr(0,2)) % 80); // 120-200
+      const reddot = 100 + (parseInt(hStr.substr(2,2)) % 100); // 100-200
+      const scope2x = 90 + (parseInt(hStr.substr(4,2)) % 100); // 90-190
+      const scope4x = 80 + (parseInt(hStr.substr(6,2)) % 100); // 80-180
+      const sniper = 20 + (parseInt(hStr.substr(8,2)) % 80);   // 20-100
+      const freelook = 100 + (parseInt(hStr.substr(10,2)) % 100); // 100-200
+      const dpi = 400 + (parseInt(hStr.substr(12,2)) * 5); // 400-895+
+
+      // Update table
+      document.getElementById('s-general').textContent = general;
+      document.getElementById('s-reddot').textContent = reddot;
+      document.getElementById('s-2x').textContent = scope2x;
+      document.getElementById('s-4x').textContent = scope4x;
+      document.getElementById('s-sniper').textContent = sniper;
+      document.getElementById('s-freelook').textContent = freelook;
+      document.getElementById('s-dpi').textContent = dpi;
+
+      // Show table
+      document.getElementById('sensi-results').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

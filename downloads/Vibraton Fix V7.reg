@@ -1,0 +1,19 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_USERS\.DEFAULT\Control Pane\Accessibility\MouseKeys]
+"Flags"="60"
+"MaximumSpeed"="100"
+"TimeToMaximumSpeed"="5000"
+"MouseSensitivity"="6"
+"MouseSensitivity2"="6"
+"MouseSpeed"="0"
+"MouseThreshold12"="0"
+"MouseThreshold22"="0"
+"MouseTrails"="0"
+"SnapToDefaultButton"="0"
+"SwapMouseButtons"="0"
+"touch adaptation"="1"
+"swipe gesture"="1"
+"AndroidWidth"=dword:000003c0
+"AndroidHeight"=dword:0000021c
+"AndroidDPI"=dword:000001b8

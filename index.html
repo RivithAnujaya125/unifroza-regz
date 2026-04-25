@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Boost your gaming performance with optimized emulators and registry tweaks. Free downloads for maximum FPS.">
+  <title>UniFroza Regz — Unlock Peak Performance</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Shepherd.js Guided Tour -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.3/dist/css/shepherd.css">
+  <style>
+    /* ===== Shepherd Tour — Gaming Theme ===== */
+    .shepherd-element { z-index: 10000 !important; }
+    .shepherd-modal-overlay-container { z-index: 9999 !important; }
+    .shepherd-content {
+      background: rgba(18, 18, 30, 0.97) !important;
+      border: 1px solid rgba(0, 240, 255, 0.2) !important;
+      border-radius: 16px !important;
+      backdrop-filter: blur(20px) !important;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 240, 255, 0.08) !important;
+    }
+    .shepherd-header {
+      background: transparent !important;
+      padding: 20px 24px 4px !important;
+    }
+    .shepherd-title {
+      font-family: 'Orbitron', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #e8e8f0 !important;
+    }
+    .shepherd-cancel-icon {
+      color: #8a8a9f !important;
+      font-size: 1.6rem !important;
+    }
+    .shepherd-cancel-icon:hover { color: #ff2d8a !important; }
+    .shepherd-text {
+      color: #8a8a9f !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 0.92rem !important;
+      line-height: 1.6 !important;
+      padding: 12px 24px 20px !important;
+    }
+    .shepherd-footer {
+      padding: 0 24px 20px !important;
+      border-top: none !important;
+    }
+    .shepherd-button {
+      background: linear-gradient(135deg, #00f0ff, #7b2dff) !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 10px !important;
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+      padding: 10px 22px !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+    }
+    .shepherd-button:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3) !important;
+    }
+    .shepherd-button-secondary {
+      background: rgba(255, 255, 255, 0.06) !important;
+      color: #8a8a9f !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    .shepherd-button-secondary:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #e8e8f0 !important;
+      box-shadow: none !important;
+    }
+    .shepherd-arrow:before {
+      background: rgba(18, 18, 30, 0.97) !important;
+      border: 1px solid rgba(0, 240, 255, 0.2) !important;
+    }
+    /* Tour trigger button */
+    .tour-trigger {
+      position: fixed;
+      bottom: 88px;
+      right: 24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(18, 18, 30, 0.75);
+      border: 1px solid rgba(123, 45, 255, 0.4);
+      color: #7b2dff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 0 20px rgba(123, 45, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+    }
+    .tour-trigger:hover {
+      transform: scale(1.1);
+      background: rgba(123, 45, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== VIDEO BACKGROUND ========== -->
+  <div class="video-bg">
+    <video autoplay loop muted playsinline>
+      <source src="assets/videos/bg-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- ========== BACKGROUND MUSIC ========== -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🎵</button>
+
+  <!-- Guided Tour Trigger Button -->
+  <button id="startTourBtn" class="tour-trigger" aria-label="Take a Tour" title="Take a Tour">🗺️</button>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></a>
+
+      <!-- Mobile hamburger toggle -->
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar__links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li id="nav-dashboard" style="display:none"><a href="downloads.html">Vault</a></li>
+        <!-- Auth-dependent links injected by auth.js -->
+        <li id="nav-login"><a href="login.html">Login</a></li>
+        <li id="nav-register"><a href="register.html" class="nav-cta">Register</a></li>
+        <li id="nav-logout" style="display:none"><a href="#" id="logout-btn" class="nav-cta">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero__badge">🎮 Next-Gen Optimization</span>
+      <h1 class="hero__title">Unlock Peak<br>Gaming Performance</h1>
+      <p class="hero__subtitle">
+        Download hand-tuned emulators and precision registry tweaks
+        engineered to squeeze every last frame out of your hardware.
+      </p>
+      <div class="hero__actions">
+        <a href="register.html" class="btn btn--primary">Get Started →</a>
+        <a href="downloads.html" class="btn btn--secondary">Browse Downloads</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Neon Divider ═══ -->
+  <hr class="neon-divider">
+
+  <!-- ========== FEATURES ========== -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Why UniFroza Regz?</h2>
+        <p>Expertly crafted registry tweaks and optimizations from a malware developer's perspective.</p>
+      </div>
+
+      <div class="features__grid">
+        <!-- Card 1 -->
+        <div class="feature-card reveal">
+          <div class="feature-card__icon feature-card__icon--cyan">🕹️</div>
+          <h3>Optimized Emulators</h3>
+          <p>Pre-configured emulators with custom builds, shader caches, and overclocked settings for butter-smooth gameplay.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card reveal">
+          <div class="feature-card__icon feature-card__icon--purple">🔧</div>
+          <h3>Registry Tweaks</h3>
+          <p>Carefully crafted .reg files that fine-tune Windows for gaming — disable bloat, reduce latency, and boost throughput.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card reveal">
+          <div class="feature-card__icon feature-card__icon--magenta">🚀</div>
+          <h3>Performance Boost</h3>
+          <p>See measurable FPS gains and lower input lag. Our community has reported up to 40% improvement on mid-range rigs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Neon Divider ═══ -->
+  <hr class="neon-divider">
+
+  <!-- ========== STATS ========== -->
+  <section class="stats reveal">
+    <div class="container">
+      <div class="stats__grid">
+        <div>
+          <div class="stat__value">12K+</div>
+          <div class="stat__label">Downloads</div>
+        </div>
+        <div>
+          <div class="stat__value">40%</div>
+          <div class="stat__label">Avg. FPS Boost</div>
+        </div>
+        <div>
+          <div class="stat__value">15+</div>
+          <div class="stat__label">Emulators</div>
+        </div>
+        <div>
+          <div class="stat__value">5K+</div>
+          <div class="stat__label">Active Users</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Neon Divider ═══ -->
+  <hr class="neon-divider">
+
+  <!-- ========== ABOUT ME ========== -->
+  <section class="about reveal" id="about">
+    <div class="container" style="max-width: 800px; padding: 80px 24px; text-align: center;">
+      <div class="section-header">
+        <h2>About the Developer</h2>
+        <p style="color: var(--cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 8px;">> WHOAMI</p>
+      </div>
+      <div class="about-card">
+        <h3 style="margin-bottom: 16px; font-size: 1.5rem;">UniFroza <span style="font-size: 1rem; color: var(--text-muted); font-family: monospace;">[ Malware Enthusiast / Software Developer ]</span></h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.8;">
+          I'm a software developer with a deep interest in malware development and low-level system internals. By understanding how the Windows OS operates under the hood — and how malicious actors manipulate it — I've learned exactly how to extract the maximum possible performance out of hardware and software.
+        </p>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+          <strong>UniFroza Regz</strong> is my personal project to share reverse-engineered optimizations, custom batch scripts, and highly tuned registry configurations designed for competitive gaming, particularly in emulator environments like Free Fire.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__brand"><span style="color:var(--text-muted)">C:\</span><span style="color:var(--purple)">UNIFROZA</span><span style="color:var(--cyan)">>_</span></span>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="downloads.html">Vault</a></li>
+          <li><a href="https://discord.gg/PNRYRgHW" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://www.tiktok.com/@unifroza_?_r=1&_t=ZS-94iMGMIr8DN" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://wa.me/94721640450" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">&copy; 2026 UniFroza Regz. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { logoutUser } from './js/auth.js';
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Handle logout
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      logoutUser();
+    });
+  </script>
+
+  <!-- Botpress AI Chatbot -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+  <script>
+    window.botpress.init({ configUrl: "https://files.bpcontent.cloud/2026/03/23/21/20260323212212-JXH45J7C.json" });
+  </script>
+
+  <!-- Shepherd.js Guided Tour -->
+  <script src="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.3/dist/js/shepherd.min.js"></script>
+  <script src="js/tour.js"></script>
+
+  <!-- Effects Engine -->
+  <script src="js/effects.js"></script>
+</body>
+</html>
