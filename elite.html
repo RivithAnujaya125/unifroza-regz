@@ -98,7 +98,7 @@
             </ol>
             <div style="background: #111; border: 1px solid var(--primary); border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: monospace; font-size: 1rem; color: #0ff; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;">
               <span>irm "https://christitus.com/win" | iex</span>
-              <button onclick="copyCommand(this, 'irm \"https://christitus.com/win\" | iex')" style="background: var(--primary); border: none; color: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">📋 Copy</button>
+              <button onclick="copyCommand(this, 'irm &quot;https://christitus.com/win&quot; | iex')" style="background: var(--primary); border: none; color: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">📋 Copy</button>
             </div>
             <li style="color: var(--text-secondary); list-style: decimal; margin-left: 1.2rem;">Wait a few seconds — the UI will load automatically.</li>
           </div>
@@ -264,18 +264,20 @@
 
   <!-- Scripts -->
   <script type="module">
-    import { logoutUser, checkEliteStatus } from './js/auth.js';
+    import * as auth from './js/auth.js';
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
     
     // Quick local auth check to prevent direct URL access
-    const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
+    const firebaseAuth = getAuth();
+    onAuthStateChanged(firebaseAuth, async (user) => {
       if (user) {
-        const isElite = await checkEliteStatus(user.uid);
+        const isElite = await auth.checkEliteStatus(user.uid);
         if (isElite) {
-          // Show page
-          document.getElementById('auth-loader').style.display = 'none';
-          document.getElementById('elite-content').style.display = 'block';
+          // Show page content if elite
+          const loader = document.getElementById('auth-loader');
+          const content = document.getElementById('elite-content');
+          if (loader) loader.style.display = 'none';
+          if (content) content.style.display = 'block';
         } else {
           // Not elite, kick them out
           alert("Access Denied: You are not an Elite member.");
@@ -288,10 +290,13 @@
     });
 
     // Handle logout link
-    document.getElementById('logout-btn').addEventListener('click', (e) => {
-      e.preventDefault();
-      logoutUser();
-    });
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        auth.logoutUser();
+      });
+    }
   </script>
 
   <!-- Effects Engine -->
